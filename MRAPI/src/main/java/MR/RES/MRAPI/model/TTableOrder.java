@@ -1,38 +1,34 @@
 package MR.RES.MRAPI.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.List;
-
 @Entity
-@Table(name = "m_table_list")
+@Table(name = "t_table_order")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class MTableList implements Serializable {
+public class TTableOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "table_id", nullable = false)
+    @Column(name = "table_order_id", nullable = false)
     private Integer id;
 
-    @Column(name = "table_nm_vn", length = 50)
-    private String tableNmVn;
+    @Column(name = "table_info_id", nullable = false)
+    private Integer tableInfoId;
 
-    @Column(name = "table_nm_en", length = 30)
-    private String tableNmEn;
+    @Column(name = "product_id", nullable = false)
+    private Integer productId;
 
-    @Column(name = "table_nm_jp", length = 50)
-    private String tableNmJp;
+    @Column(name = "count", nullable = false)
+    private String count;
 
-    @Column(name = "sort_no", nullable = false, length = 10)
-    private String sortNo;
+    @Column(name = "product_order_stt_id", nullable = false)
+    private String productOrderSttId;
 
-    @Column(name = "table_ava", length = 200)
-    private String tableAva;
+    @Column(name = "order_dt", nullable = false)
+    private String orderDt;
 
-    @Column(name = "capacity", nullable = false, length = 5)
-    private String capacity;
+    @Column(name = "done_dt", nullable = false)
+    private String doneDt;
 
     @Column(name = "crt_dt", nullable = false, length = 20)
     private String crtDt;
@@ -55,17 +51,17 @@ public class MTableList implements Serializable {
     @Column(name = "del_fg", nullable = false)
     private Character delFg;
 
-    public MTableList() {
+    public TTableOrder() {
     }
 
-    public MTableList(Integer id, String tableNmVn, String tableNmEn, String tableNmJp, String sortNo, String tableAva, String capacity, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+    public TTableOrder(Integer id, Integer tableInfoId, Integer productId, String count, String productOrderSttId, String orderDt, String doneDt, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
         this.id = id;
-        this.tableNmVn = tableNmVn;
-        this.tableNmEn = tableNmEn;
-        this.tableNmJp = tableNmJp;
-        this.sortNo = sortNo;
-        this.tableAva = tableAva;
-        this.capacity = capacity;
+        this.tableInfoId = tableInfoId;
+        this.productId = productId;
+        this.count = count;
+        this.productOrderSttId = productOrderSttId;
+        this.orderDt = orderDt;
+        this.doneDt = doneDt;
         this.crtDt = crtDt;
         this.crtUserId = crtUserId;
         this.crtPgmId = crtPgmId;
@@ -75,7 +71,6 @@ public class MTableList implements Serializable {
         this.delFg = delFg;
     }
 
-
     public Integer getId() {
         return id;
     }
@@ -84,52 +79,52 @@ public class MTableList implements Serializable {
         this.id = id;
     }
 
-    public String getTableNmVn() {
-        return tableNmVn;
+    public Integer getTableInfoId() {
+        return tableInfoId;
     }
 
-    public void setTableNmVn(String tableNmVn) {
-        this.tableNmVn = tableNmVn;
+    public void setTableInfoId(Integer tableInfoId) {
+        this.tableInfoId = tableInfoId;
     }
 
-    public String getTableNmEn() {
-        return tableNmEn;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setTableNmEn(String tableNmEn) {
-        this.tableNmEn = tableNmEn;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public String getTableNmJp() {
-        return tableNmJp;
+    public String getCount() {
+        return count;
     }
 
-    public void setTableNmJp(String tableNmJp) {
-        this.tableNmJp = tableNmJp;
+    public void setCount(String count) {
+        this.count = count;
     }
 
-    public String getSortNo() {
-        return sortNo;
+    public String getProductOrderSttId() {
+        return productOrderSttId;
     }
 
-    public void setSortNo(String sortNo) {
-        this.sortNo = sortNo;
+    public void setProductOrderSttId(String productOrderSttId) {
+        this.productOrderSttId = productOrderSttId;
     }
 
-    public String getTableAva() {
-        return tableAva;
+    public String getOrderDt() {
+        return orderDt;
     }
 
-    public void setTableAva(String tableAva) {
-        this.tableAva = tableAva;
+    public void setOrderDt(String orderDt) {
+        this.orderDt = orderDt;
     }
 
-    public String getCapacity() {
-        return capacity;
+    public String getDoneDt() {
+        return doneDt;
     }
 
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
+    public void setDoneDt(String doneDt) {
+        this.doneDt = doneDt;
     }
 
     public String getCrtDt() {
@@ -187,5 +182,4 @@ public class MTableList implements Serializable {
     public void setDelFg(Character delFg) {
         this.delFg = delFg;
     }
-
 }
