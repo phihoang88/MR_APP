@@ -27,7 +27,7 @@ public class TTableOrder implements Serializable {
     @Column(name = "order_dt", nullable = false)
     private String orderDt;
 
-    @Column(name = "done_dt", nullable = false)
+    @Column(name = "done_dt")
     private String doneDt;
 
     @Column(name = "crt_dt", nullable = false, length = 20)

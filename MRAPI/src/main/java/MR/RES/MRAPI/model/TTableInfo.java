@@ -21,13 +21,13 @@ public class TTableInfo implements Serializable {
     @Column(name = "table_stt_id", nullable = false)
     private Integer tableSttId;
 
-    @Column(name = "book_dt", nullable = false, length = 20)
+    @Column(name = "book_dt", length = 20)
     private String bookDt;
 
-    @Column(name = "guess_nm", nullable = false, length = 30)
+    @Column(name = "guess_nm", length = 30)
     private String guessNm;
 
-    @Column(name = "note_tx", nullable = false, length = 200)
+    @Column(name = "note_tx", length = 200)
     private String noteTx;
 
     @Column(name = "serve_datetime", nullable = false, length = 20)
