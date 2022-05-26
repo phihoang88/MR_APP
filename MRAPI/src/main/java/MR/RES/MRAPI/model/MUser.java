@@ -46,6 +46,24 @@ public class MUser implements Serializable {
     @Column(name = "del_fg", nullable = false)
     private Character delFg;
 
+
+    public MUser(String id, String userNm, String password, String roleId, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+        this.id = id;
+        this.userNm = userNm;
+        this.password = password;
+        this.roleId = roleId;
+        this.crtDt = crtDt;
+        this.crtUserId = crtUserId;
+        this.crtPgmId = crtPgmId;
+        this.updDt = updDt;
+        this.updUserId = updUserId;
+        this.updPgmId = updPgmId;
+        this.delFg = delFg;
+    }
+
+    public MUser() {
+    }
+
     public String getId() {
         return id;
     }
