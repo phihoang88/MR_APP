@@ -27,8 +27,14 @@ public class TTableOrder implements Serializable {
     @Column(name = "order_dt", nullable = false)
     private String orderDt;
 
+    @Column(name = "order_tm", nullable = false)
+    private String orderTm;
+
     @Column(name = "done_dt")
     private String doneDt;
+
+    @Column(name = "done_tm")
+    private String doneTm;
 
     @Column(name = "crt_dt", nullable = false, length = 20)
     private String crtDt;
@@ -54,14 +60,16 @@ public class TTableOrder implements Serializable {
     public TTableOrder() {
     }
 
-    public TTableOrder(Integer id, Integer tableInfoId, Integer productId, String count, String productOrderSttId, String orderDt, String doneDt, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+    public TTableOrder(Integer id, Integer tableInfoId, Integer productId, String count, String productOrderSttId, String orderDt, String orderTm, String doneDt, String doneTm, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
         this.id = id;
         this.tableInfoId = tableInfoId;
         this.productId = productId;
         this.count = count;
         this.productOrderSttId = productOrderSttId;
         this.orderDt = orderDt;
+        this.orderTm = orderTm;
         this.doneDt = doneDt;
+        this.doneTm = doneTm;
         this.crtDt = crtDt;
         this.crtUserId = crtUserId;
         this.crtPgmId = crtPgmId;
@@ -153,6 +161,22 @@ public class TTableOrder implements Serializable {
 
     public String getUpdDt() {
         return updDt;
+    }
+
+    public String getOrderTm() {
+        return orderTm;
+    }
+
+    public void setOrderTm(String orderTm) {
+        this.orderTm = orderTm;
+    }
+
+    public String getDoneTm() {
+        return doneTm;
+    }
+
+    public void setDoneTm(String doneTm) {
+        this.doneTm = doneTm;
     }
 
     public void setUpdDt(String updDt) {

@@ -1,13 +1,16 @@
 package MR.RES.MRAPI.api;
 
 import MR.RES.MRAPI.model.MTableList;
-import MR.RES.MRAPI.model.Queries.TableInfoList;
+import MR.RES.MRAPI.model.Queries.OrderItemInfo;
+import MR.RES.MRAPI.model.Queries.OrderListByProduct;
 import MR.RES.MRAPI.model.Queries.TableOrdering;
+import MR.RES.MRAPI.model.Requests.TableStatus;
 import MR.RES.MRAPI.model.TTableInfo;
 import MR.RES.MRAPI.model.TTableOrder;
 import MR.RES.MRAPI.service.MTableListRepository;
 import MR.RES.MRAPI.service.TTableInfoRepository;
 import MR.RES.MRAPI.service.TTableOrderRepository;
+import MR.RES.MRAPI.system.Common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,43 +54,6 @@ public class RestApiTableController {
         return table;
     }
 
-
-    @RequestMapping(value = "/getList", method = RequestMethod.GET)
-    ResponseEntity<ResponseObject> getListTable() {
-        List<Object[]> tableInfoDisplays = tableListRepository.getListTableDisplay();
-        String json;
-        Gson gson;
-
-        List<Object> results = new ArrayList<>();
-        for(int i = 0 ; i <= tableInfoDisplays.size() - 1; i ++){
-            List<Object> tableDatas = Arrays.stream(tableInfoDisplays.get(i)).toList();
-            gson = new Gson();
-            json = gson.toJson(new TableInfoList(
-                                tableDatas.get(0),
-                                tableDatas.get(1),
-                                tableDatas.get(2),
-                                tableDatas.get(3),
-                                tableDatas.get(4),
-                                tableDatas.get(5),
-                                tableDatas.get(6),
-                                tableDatas.get(7),
-                                tableDatas.get(8),
-                                tableDatas.get(9),
-                                tableDatas.get(10),
-                                tableDatas.get(11),
-                                tableDatas.get(12)));
-            TableInfoList tableInfoList = gson.fromJson(json, TableInfoList.class);
-            results.add(tableInfoList);
-        }
-        return results.size() > 0 ?
-                ResponseEntity.status(HttpStatus.OK).body (
-                        new ResponseObject("success","Get table list success", results)
-                ):
-                ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("failed","Get table list false", null)
-                );
-    }
-
     @RequestMapping(value = "/insertOrders", method = RequestMethod.POST)
     ResponseEntity<ResponseObject> insertOrder(@RequestBody List<TTableOrder> tableOrders){
         try{
@@ -115,6 +81,30 @@ public class RestApiTableController {
             );
         }
     }
+
+
+
+
+    @RequestMapping(value = "/insertOrdersFromGuess", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> insertOrdersFromGuess(@RequestBody List<TTableOrder> tableOrders){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success","Insert Order successfully!",tableOrderRepository.saveAll(tableOrders))
+            );
+        }
+        catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed",exception.getMessage().toString(),"")
+            );
+        }
+    }
+
+
+
+
+
+
+
 
     @RequestMapping(value = "/getOrderingList/{tableInfoId}", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListOrdering(@PathVariable("tableInfoId") Integer tableInfoId) {
@@ -157,11 +147,12 @@ public class RestApiTableController {
 
     @RequestMapping(value = "/doneOrder/{tableOrderId}", method = RequestMethod.PUT)
     ResponseEntity<ResponseObject> doneOrder(@PathVariable("tableOrderId") Integer tableOrderId){
+        String date = new Common().getSystemDateTimeString();
         Optional<TTableOrder> tTableOrder = tableOrderRepository.findById(tableOrderId)
                                                                 .map(order -> {
                                                                     order.setProductOrderSttId("1");
-                                                                    order.setDoneDt("");
-                                                                    order.setUpdDt("");
+                                                                    order.setDoneDt(date);
+                                                                    order.setUpdDt(date);
                                                                     order.setUpdUserId("huy");
                                                                     order.setUpdPgmId("Order Screen");
                                                                     return tableOrderRepository.save(order);
@@ -169,6 +160,97 @@ public class RestApiTableController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("success","Update Order Product successfully",tTableOrder)
         );
+    }
+
+    @RequestMapping(value = "/updateStt/{tableInfoId}", method = RequestMethod.PUT)
+    ResponseEntity<ResponseObject> updateTableStatus(@PathVariable("tableInfoId") Integer tableInfoId, @RequestBody TableStatus tableStatus){
+        String date = new Common().getSystemDateTimeString();
+        Optional<TTableInfo> tableInfo = tableInfoRepository.findById(tableInfoId)
+                .map(info -> {
+                    info.setTableSttId(tableStatus.getTableStatusId());
+                    info.setUpdDt(date);
+                    info.setUpdUserId("huy");
+                    info.setUpdPgmId("Order Screen");
+                    return tableInfoRepository.save(info);
+                });
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("success","Update Table Status successfully",tableInfo)
+        );
+    }
+
+    @RequestMapping(value = "/getProductOrderList", method = RequestMethod.GET)
+    ResponseEntity<ResponseObject> getProductOrderList() {
+        List<Object[]> productOrders = tableOrderRepository.getListProductOrder();
+        String json;
+        Gson gson;
+        List<Object> results = new ArrayList<>();
+
+        List<OrderItemInfo> lstOrderItem = null;
+        OrderListByProduct orderListByProduct = null;
+        Long currId = null;
+        Long nextId = null;
+
+        for(int i = 0 ; i <= productOrders.size() - 1; i ++){
+            List<Object> orderDatas = Arrays.stream(productOrders.get(i)).toList();
+            //get each id row
+            nextId = Long.parseLong(orderDatas.get(8).toString());
+            if(currId == null){
+                currId = Long.parseLong(orderDatas.get(8).toString());
+                lstOrderItem = new ArrayList<OrderItemInfo>();
+                orderListByProduct = new OrderListByProduct(
+                        orderDatas.get(8),
+                        orderDatas.get(9),
+                        orderDatas.get(10),
+                        orderDatas.get(11),
+                        orderDatas.get(12),
+                        orderDatas.get(13),
+                        orderDatas.get(14),
+                        null
+                );
+            } else if (currId != nextId) {
+                orderListByProduct.setOrderItemInfos(lstOrderItem);
+                gson = new Gson();
+                json = gson.toJson(orderListByProduct);
+                OrderListByProduct orderJson = gson.fromJson(json, OrderListByProduct.class);
+                results.add(orderJson);
+
+                currId = nextId;
+                lstOrderItem = new ArrayList<OrderItemInfo>();
+                orderListByProduct = new OrderListByProduct(
+                        orderDatas.get(8),
+                        orderDatas.get(9),
+                        orderDatas.get(10),
+                        orderDatas.get(11),
+                        orderDatas.get(12),
+                        orderDatas.get(13),
+                        orderDatas.get(14),
+                        null
+                );
+            }
+            OrderItemInfo orderItemInfo = new OrderItemInfo(
+                    orderDatas.get(0),
+                    orderDatas.get(1),
+                    orderDatas.get(2),
+                    orderDatas.get(3),
+                    orderDatas.get(4),
+                    orderDatas.get(5),
+                    orderDatas.get(6),
+                    orderDatas.get(7));
+            lstOrderItem.add(orderItemInfo);
+        }
+        orderListByProduct.setOrderItemInfos(lstOrderItem);
+        gson = new Gson();
+        json = gson.toJson(orderListByProduct);
+        OrderListByProduct orderJson = gson.fromJson(json, OrderListByProduct.class);
+        results.add(orderJson);
+
+        return results.size() > 0 ?
+                ResponseEntity.status(HttpStatus.OK).body (
+                        new ResponseObject("success","Get product ordering list success", results)
+                ):
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("failed","Get product ordering list false", null)
+                );
     }
 
 }
