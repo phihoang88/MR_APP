@@ -2,7 +2,6 @@ package MR.RES.MRAPI.api;
 
 import MR.RES.MRAPI.model.MMenu;
 import MR.RES.MRAPI.model.Queries.MenuList;
-import MR.RES.MRAPI.model.Queries.TableInfoList;
 import MR.RES.MRAPI.service.MMenuRepository;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
