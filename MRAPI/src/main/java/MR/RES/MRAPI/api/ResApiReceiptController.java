@@ -2,11 +2,14 @@ package MR.RES.MRAPI.api;
 import MR.RES.MRAPI.model.Queries.Receipt.OrderListForReceipt;
 import MR.RES.MRAPI.model.Queries.Receipt.ProductForReceiptItem;
 import MR.RES.MRAPI.model.ResponseObject;
+import MR.RES.MRAPI.model.TTableOrder;
+import MR.RES.MRAPI.model.TTableReceipt;
 import MR.RES.MRAPI.service.ReceiptRepository;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +45,7 @@ public class ResApiReceiptController {
                 orderListForReceipt = new OrderListForReceipt(
                         orderDatas.get(0),
                         orderDatas.get(1),
+                        orderDatas.get(12),
                         orderDatas.get(2),
                         orderDatas.get(3),
                         orderDatas.get(4),
@@ -59,6 +63,7 @@ public class ResApiReceiptController {
                 orderListForReceipt = new OrderListForReceipt(
                         orderDatas.get(0),
                         orderDatas.get(1),
+                        orderDatas.get(12),
                         orderDatas.get(2),
                         orderDatas.get(3),
                         orderDatas.get(4),
@@ -92,5 +97,17 @@ public class ResApiReceiptController {
                 );
     }
 
-
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    ResponseEntity<ResponseObject> insertReceipt(@RequestBody TTableReceipt tableReceipt){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success","Insert Receipt successfully!",receiptRepository.save(tableReceipt))
+            );
+        }
+        catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed",exception.getMessage().toString(),"")
+            );
+        }
+    }
 }

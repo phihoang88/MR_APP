@@ -15,6 +15,7 @@ public interface TTableOrderRepository extends JpaRepository<TTableOrder, Intege
             "    tb1.product_order_stt_id,\n" +
             "    tb1.order_dt,\n" +
             "    tb1.done_dt,\n" +
+            "    tb1.note_tx,\n" +
             "    tb2.description,\n" +
             "\ttb2.menu_id,\n" +
             "\ttb2.price,\n" +

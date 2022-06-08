@@ -24,6 +24,12 @@ public class TTableOrder implements Serializable {
     @Column(name = "product_order_stt_id", nullable = false)
     private String productOrderSttId;
 
+    @Column(name = "product_opt_id")
+    private Integer productOptId;
+
+    @Column(name = "opt_count")
+    private Integer optCount;
+
     @Column(name = "order_dt", nullable = false)
     private String orderDt;
 
@@ -35,6 +41,9 @@ public class TTableOrder implements Serializable {
 
     @Column(name = "done_tm")
     private String doneTm;
+
+    @Column(name = "note_tx")
+    private String noteTx;
 
     @Column(name = "crt_dt", nullable = false, length = 20)
     private String crtDt;
@@ -60,16 +69,19 @@ public class TTableOrder implements Serializable {
     public TTableOrder() {
     }
 
-    public TTableOrder(Integer id, Integer tableInfoId, Integer productId, String count, String productOrderSttId, String orderDt, String orderTm, String doneDt, String doneTm, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+    public TTableOrder(Integer id, Integer tableInfoId, Integer productId, String count, String productOrderSttId, Integer productOptId, Integer optCount, String orderDt, String orderTm, String doneDt, String doneTm, String noteTx, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
         this.id = id;
         this.tableInfoId = tableInfoId;
         this.productId = productId;
         this.count = count;
         this.productOrderSttId = productOrderSttId;
+        this.productOptId = productOptId;
+        this.optCount = optCount;
         this.orderDt = orderDt;
         this.orderTm = orderTm;
         this.doneDt = doneDt;
         this.doneTm = doneTm;
+        this.noteTx = noteTx;
         this.crtDt = crtDt;
         this.crtUserId = crtUserId;
         this.crtPgmId = crtPgmId;
@@ -177,6 +189,30 @@ public class TTableOrder implements Serializable {
 
     public void setDoneTm(String doneTm) {
         this.doneTm = doneTm;
+    }
+
+    public Integer getProductOptId() {
+        return productOptId;
+    }
+
+    public void setProductOptId(Integer productOptId) {
+        this.productOptId = productOptId;
+    }
+
+    public Integer getOptCount() {
+        return optCount;
+    }
+
+    public void setOptCount(Integer optCount) {
+        this.optCount = optCount;
+    }
+
+    public String getNoteTx() {
+        return noteTx;
+    }
+
+    public void setNoteTx(String noteTx) {
+        this.noteTx = noteTx;
     }
 
     public void setUpdDt(String updDt) {

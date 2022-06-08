@@ -4,7 +4,7 @@ public class OrderListForReceipt {
 
     private Object table_info_id;
     private Object product_order_stt_id;
-
+    private Object is_end;
     private Object table_nm_vn;
     private Object table_nm_en;
     private Object table_nm_jp;
@@ -13,9 +13,10 @@ public class OrderListForReceipt {
     public OrderListForReceipt() {
     }
 
-    public OrderListForReceipt(Object table_info_id, Object product_order_stt_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, List<ProductForReceiptItem> listProducts) {
+    public OrderListForReceipt(Object table_info_id, Object product_order_stt_id, Object is_end, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, List<ProductForReceiptItem> listProducts) {
         this.table_info_id = table_info_id;
         this.product_order_stt_id = product_order_stt_id;
+        this.is_end = is_end;
         this.table_nm_vn = table_nm_vn;
         this.table_nm_en = table_nm_en;
         this.table_nm_jp = table_nm_jp;
@@ -68,5 +69,13 @@ public class OrderListForReceipt {
 
     public void setTable_nm_jp(Object table_nm_jp) {
         this.table_nm_jp = table_nm_jp;
+    }
+
+    public Object getIs_end() {
+        return is_end;
+    }
+
+    public void setIs_end(Object is_end) {
+        this.is_end = is_end;
     }
 }
