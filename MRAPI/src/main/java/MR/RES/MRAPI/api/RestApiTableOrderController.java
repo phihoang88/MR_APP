@@ -26,6 +26,10 @@ public class RestApiTableOrderController {
     @RequestMapping(value = "/getOrderingList/{tableInfoId}", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListOrdering(@PathVariable("tableInfoId") Integer tableInfoId) {
         List<Object[]> tableOrderings = tableOrderRepository.getListOrdering(tableInfoId);
+        if (tableOrderings.size() == 0){
+            return ResponseEntity.status(HttpStatus.OK).body (
+                    new ResponseObject("success","Get table ordering list success", null));
+        }
         String json;
         Gson gson;
 

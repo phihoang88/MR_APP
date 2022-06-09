@@ -29,6 +29,10 @@ public class ResApiTableInfoController {
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListTable() {
         List<Object[]> tableInfoDisplays = tableInfoRepository.getListTableDisplay();
+        if(tableInfoDisplays.size() == 0){
+            return ResponseEntity.status(HttpStatus.OK).body (
+                    new ResponseObject("success","Get table list success", null));
+        }
         String json;
         Gson gson;
 

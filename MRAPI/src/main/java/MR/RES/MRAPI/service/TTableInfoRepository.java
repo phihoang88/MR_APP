@@ -33,6 +33,7 @@ public interface TTableInfoRepository extends JpaRepository<TTableInfo, Integer>
             "FROM m_table_list tb1\n" +
             "left join t_table_info tb2\n" +
             "on   tb1.table_id = tb2.TABLE_ID\n" +
+            "and  tb2.IS_END <> '1' \n" +
             "and  tb2.DEL_FG <> '1' \n" +
             "left join m_hanyo tb3\n" +
             "on  tb2.table_stt_id = tb3.hanyo_id\n" +

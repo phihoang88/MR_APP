@@ -57,6 +57,10 @@ public class RestApiTableController {
     @RequestMapping(value = "/getProductOrderList", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getProductOrderList() {
         List<Object[]> productOrders = tableOrderRepository.getListProductOrder();
+        if (productOrders.size() == 0){
+            return ResponseEntity.status(HttpStatus.OK).body (
+                   new ResponseObject("success","Get product ordering list success", null));
+        }
         String json;
         Gson gson;
         List<Object> results = new ArrayList<>();

@@ -44,6 +44,11 @@ public class ResApiProductController {
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListProductByMenuId() {
         List<Object[]> proLists = productRepository.getListProduct();
+        if (proLists.size() == 0){
+            return ResponseEntity.status(HttpStatus.OK).body (
+                    new ResponseObject("success","Get product list success", null)
+            );
+        }
         String json;
         Gson gson;
 

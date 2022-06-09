@@ -26,6 +26,10 @@ public class ResApiReceiptController {
     @RequestMapping(value = "/getListOrderForReceipt", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListOrderForReceipt() {
         List<Object[]> orderForReceipts = receiptRepository.getListOrderForReceipt();
+        if(orderForReceipts.size() == 0){
+            return ResponseEntity.status(HttpStatus.OK).body (
+                    new ResponseObject("success","Get ordering list for receipt success", null));
+        }
         List<Object> results = new ArrayList<>();
         String json;
         Gson gson;
