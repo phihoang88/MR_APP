@@ -1,12 +1,11 @@
 package MR.RES.MRAPI.service;
 
-import MR.RES.MRAPI.model.TTableInfo;
-import MR.RES.MRAPI.model.TTableOrder;
+import MR.RES.MRAPI.model.TTableReceipt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
-public interface ReceiptRepository extends JpaRepository<TTableOrder, Integer>{
+public interface ReceiptRepository extends JpaRepository<TTableReceipt, Integer>{
     @Query(value = "select tb1.table_info_id,\n" +
             "       tb1.product_order_stt_id,\n" +
             "       tb4.table_nm_vn,\n" +
@@ -18,7 +17,8 @@ public interface ReceiptRepository extends JpaRepository<TTableOrder, Integer>{
             "       tb2.product_nm_jp,\n" +
             "       sum(tb1.count) as count,\n" +
             "       tb2.price,\n" +
-            "       tb2.price_show\n" +
+            "       tb2.price_show, \n" +
+            "       tb3.is_end \n" +
             "from   t_table_order tb1\n" +
             "join   m_product     tb2\n" +
             "on     tb1.product_id = tb2.product_id\n" +

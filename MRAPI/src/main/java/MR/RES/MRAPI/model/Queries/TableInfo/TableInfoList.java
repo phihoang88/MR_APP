@@ -58,10 +58,14 @@ public class TableInfoList {
     @Expose
     private Object is_checkout;
 
+    private Object guess_nm;
+    private Object guess_count;
+    private Object guess_phone;
+
     public TableInfoList() {
     }
 
-    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout) {
+    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout, Object guess_nm, Object guess_count, Object guess_phone) {
         this.table_id = table_id;
         this.table_nm_vn = table_nm_vn;
         this.table_nm_en = table_nm_en;
@@ -79,6 +83,9 @@ public class TableInfoList {
         this.table_stt_nm = table_stt_nm;
         this.is_calling = is_calling;
         this.is_checkout = is_checkout;
+        this.guess_nm = guess_nm;
+        this.guess_count = guess_count;
+        this.guess_phone = guess_phone;
     }
 
     public Object getTable_id() {
@@ -215,5 +222,29 @@ public class TableInfoList {
 
     public void setIs_checkout(Object is_checkout) {
         this.is_checkout = is_checkout;
+    }
+
+    public Object getGuess_nm() {
+        return guess_nm;
+    }
+
+    public void setGuess_nm(Object guess_nm) {
+        this.guess_nm = guess_nm;
+    }
+
+    public Object getGuess_count() {
+        return guess_count;
+    }
+
+    public void setGuess_count(Object guess_count) {
+        this.guess_count = guess_count;
+    }
+
+    public Object getGuess_phone() {
+        return guess_phone;
+    }
+
+    public void setGuess_phone(Object guess_phone) {
+        this.guess_phone = guess_phone;
     }
 }

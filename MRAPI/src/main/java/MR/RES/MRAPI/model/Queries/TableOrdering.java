@@ -8,6 +8,7 @@ public class TableOrdering {
     private Object product_order_stt_id;
     private Object order_dt;
     private Object done_dt;
+    private Object note_tx;
     private Object description;
     private Object menu_id;
     private Object price;
@@ -20,7 +21,7 @@ public class TableOrdering {
     public TableOrdering() {
     }
 
-    public TableOrdering(Object table_order_id, Object table_info_id, Object product_id, Object count, Object product_order_stt_id, Object order_dt, Object done_dt, Object description, Object menu_id, Object price, Object price_show, Object product_avatar, Object product_nm_en, Object product_nm_jp, Object product_nm_vn) {
+    public TableOrdering(Object table_order_id, Object table_info_id, Object product_id, Object count, Object product_order_stt_id, Object order_dt, Object done_dt, Object note_tx, Object description, Object menu_id, Object price, Object price_show, Object product_avatar, Object product_nm_en, Object product_nm_jp, Object product_nm_vn) {
         this.table_order_id = table_order_id;
         this.table_info_id = table_info_id;
         this.product_id = product_id;
@@ -28,6 +29,7 @@ public class TableOrdering {
         this.product_order_stt_id = product_order_stt_id;
         this.order_dt = order_dt;
         this.done_dt = done_dt;
+        this.note_tx = note_tx;
         this.description = description;
         this.menu_id = menu_id;
         this.price = price;
@@ -92,6 +94,14 @@ public class TableOrdering {
 
     public void setDone_dt(Object done_dt) {
         this.done_dt = done_dt;
+    }
+
+    public Object getNote_tx() {
+        return note_tx;
+    }
+
+    public void setNote_tx(Object note_tx) {
+        this.note_tx = note_tx;
     }
 
     public Object getDescription() {

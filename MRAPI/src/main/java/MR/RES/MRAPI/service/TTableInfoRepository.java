@@ -26,10 +26,14 @@ public interface TTableInfoRepository extends JpaRepository<TTableInfo, Integer>
             "else tb3.attr1_tx \n" +
             "end as table_stt_nm, \n" +
             "tb2.is_calling as is_calling, \n" +
-            "tb2.is_checkout as is_checkout \n" +
+            "tb2.is_checkout as is_checkout, \n" +
+            "tb2.guess_nm, \n " +
+            "tb2.guess_count, \n " +
+            "tb2.guess_phone \n " +
             "FROM m_table_list tb1\n" +
             "left join t_table_info tb2\n" +
             "on   tb1.table_id = tb2.TABLE_ID\n" +
+            "and  tb2.IS_END <> '1' \n" +
             "and  tb2.DEL_FG <> '1' \n" +
             "left join m_hanyo tb3\n" +
             "on  tb2.table_stt_id = tb3.hanyo_id\n" +
