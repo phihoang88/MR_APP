@@ -1,6 +1,7 @@
 package MR.RES.MRAPI.api;
 import MR.RES.MRAPI.model.Queries.Receipt.OrderListForReceipt;
 import MR.RES.MRAPI.model.Queries.Receipt.ProductForReceiptItem;
+import MR.RES.MRAPI.model.Queries.TableDevice.TableDevice;
 import MR.RES.MRAPI.model.ResponseObject;
 import MR.RES.MRAPI.model.TTableOrder;
 import MR.RES.MRAPI.model.TTableReceipt;
@@ -9,10 +10,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -114,4 +112,5 @@ public class ResApiReceiptController {
             );
         }
     }
+
 }

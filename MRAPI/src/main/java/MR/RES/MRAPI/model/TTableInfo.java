@@ -53,6 +53,9 @@ public class TTableInfo implements Serializable {
     @Column(name = "is_checkout")
     private Character isCheckout;
 
+    @Column(name = "device_token")
+    private String deviceToken;
+
     @Column(name = "crt_dt",nullable = false, length = 20)
     private String crtDt;
 
@@ -79,7 +82,7 @@ public class TTableInfo implements Serializable {
     public TTableInfo() {
     }
 
-    public TTableInfo(Integer id, Integer tableId, Integer tableSttId, String bookDt, String bookTm, String guessNm, String guessPhone, String guessCount, String noteTx, String serveDate, String serveTime, Character isEnd, Character isCalling, Character isCheckout, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+    public TTableInfo(Integer id, Integer tableId, Integer tableSttId, String bookDt, String bookTm, String guessNm, String guessPhone, String guessCount, String noteTx, String serveDate, String serveTime, Character isEnd, Character isCalling, Character isCheckout,String deviceToken, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
         this.id = id;
         this.tableId = tableId;
         this.tableSttId = tableSttId;
@@ -94,6 +97,7 @@ public class TTableInfo implements Serializable {
         this.isEnd = isEnd;
         this.isCalling = isCalling;
         this.isCheckout = isCheckout;
+        this.deviceToken = deviceToken;
         this.crtDt = crtDt;
         this.crtUserId = crtUserId;
         this.crtPgmId = crtPgmId;
@@ -269,5 +273,13 @@ public class TTableInfo implements Serializable {
 
     public void setIsCheckout(Character isCheckout) {
         this.isCheckout = isCheckout;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 }
