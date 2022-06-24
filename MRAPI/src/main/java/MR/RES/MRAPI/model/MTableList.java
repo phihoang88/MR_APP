@@ -1,13 +1,15 @@
 package MR.RES.MRAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.List;
-
 @Entity
+@Getter
+@Setter
 @Table(name = "m_table_list")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MTableList implements Serializable {
@@ -34,6 +36,9 @@ public class MTableList implements Serializable {
     @Column(name = "capacity", nullable = false, length = 5)
     private String capacity;
 
+    @Column(name = "device_id", length = 30)
+    private String deviceId;
+
     @Column(name = "crt_dt", nullable = false, length = 20)
     private String crtDt;
 
@@ -58,7 +63,7 @@ public class MTableList implements Serializable {
     public MTableList() {
     }
 
-    public MTableList(Integer id, String tableNmVn, String tableNmEn, String tableNmJp, String sortNo, String tableAva, String capacity, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
+    public MTableList(Integer id, String tableNmVn, String tableNmEn, String tableNmJp, String sortNo, String tableAva, String capacity, String deviceId, String crtDt, String crtUserId, String crtPgmId, String updDt, String updUserId, String updPgmId, Character delFg) {
         this.id = id;
         this.tableNmVn = tableNmVn;
         this.tableNmEn = tableNmEn;
@@ -66,6 +71,7 @@ public class MTableList implements Serializable {
         this.sortNo = sortNo;
         this.tableAva = tableAva;
         this.capacity = capacity;
+        this.deviceId = deviceId;
         this.crtDt = crtDt;
         this.crtUserId = crtUserId;
         this.crtPgmId = crtPgmId;
@@ -74,7 +80,6 @@ public class MTableList implements Serializable {
         this.updPgmId = updPgmId;
         this.delFg = delFg;
     }
-
 
     public Integer getId() {
         return id;
@@ -130,6 +135,14 @@ public class MTableList implements Serializable {
 
     public void setCapacity(String capacity) {
         this.capacity = capacity;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getCrtDt() {

@@ -1,5 +1,6 @@
 package MR.RES.MRAPI.api;
 
+import MR.RES.MRAPI.model.Queries.TableDevice.TableDevice;
 import MR.RES.MRAPI.model.Queries.TableInfo.TableInfoList;
 import MR.RES.MRAPI.model.Requests.TableStatus;
 import MR.RES.MRAPI.model.ResponseObject;
@@ -137,19 +138,21 @@ public class ResApiTableInfoController {
     }
 
     @RequestMapping(value = "/makeCheckout/{tableInfoId}", method = RequestMethod.PUT)
-    ResponseEntity<ResponseObject> makeCheckout(@PathVariable("tableInfoId") Integer tableInfoId){
+    ResponseEntity<ResponseObject> makeCheckout(@PathVariable("tableInfoId") Integer tableInfoId, @RequestBody String deviceToken){
         try{
             String date = new Common().getSystemDateTimeString();
             Optional<TTableInfo> tTableInfo = tableInfoRepository.findById(tableInfoId)
                     .map(info -> {
+                        info.setDeviceToken(new JSONObject(deviceToken).get("deviceToken").toString());
                         info.setIsCheckout('1');
+                        info.setIsCalling('1');
                         info.setUpdDt(date);
                         info.setUpdUserId("huy");
                         info.setUpdPgmId("Table Screen");
                         return tableInfoRepository.save(info);
                     });
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new ResponseObject("success","Update Calling status successfully",tTableInfo)
+                    new ResponseObject("success","Update Checkout status successfully",tTableInfo)
             );
         }
         catch (Exception exception){
@@ -260,5 +263,28 @@ public class ResApiTableInfoController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("success","Update Table Status successfully",tableInfo)
         );
+    }
+
+    @RequestMapping(value = "/getDeviceToken/{tableInfoId}", method = RequestMethod.GET)
+    ResponseEntity<ResponseObject> getInfoByDeviceId(@PathVariable("tableInfoId") Integer tableInfoId) {
+        try {
+            Optional<TTableInfo> tableInfo = tableInfoRepository.findById(tableInfoId);
+            if (tableInfo.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("success", "Cannot get device token by id", null));
+            }
+
+            Gson gson = new Gson();
+            String json = gson.toJson(tableInfo.get().getDeviceToken());
+
+            String res = gson.fromJson(json,String.class);
+
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success", "Get device token success", res));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed", "Get device token false", null)
+            );
+        }
     }
 }
