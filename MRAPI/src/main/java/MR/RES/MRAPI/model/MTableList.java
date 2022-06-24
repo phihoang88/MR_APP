@@ -1,13 +1,15 @@
 package MR.RES.MRAPI.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-import java.util.List;
-
 @Entity
+@Getter
+@Setter
 @Table(name = "m_table_list")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MTableList implements Serializable {
@@ -34,7 +36,7 @@ public class MTableList implements Serializable {
     @Column(name = "capacity", nullable = false, length = 5)
     private String capacity;
 
-    @Column(name = "device_id", length = 100)
+    @Column(name = "device_id", length = 30)
     private String deviceId;
 
     @Column(name = "crt_dt", nullable = false, length = 20)

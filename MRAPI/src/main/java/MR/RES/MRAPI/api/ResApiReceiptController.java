@@ -53,7 +53,7 @@ public class ResApiReceiptController {
                         orderDatas.get(4),
                         null
                 );
-            } else if (currId != nextId) {
+            } else if (Long.compare(currId,nextId) != 0) {
                 orderListForReceipt.setListProducts(lstOrderItem);
                 gson = new Gson();
                 json = gson.toJson(orderListForReceipt);

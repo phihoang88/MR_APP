@@ -1,6 +1,8 @@
 package MR.RES.MRAPI.model.Notification;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Data
 public class NotificationRequestDto {
@@ -8,6 +10,7 @@ public class NotificationRequestDto {
     private String target;
     private String title;
     private String body;
+    @JsonInclude(Include.NON_NULL)
     private NotificationDataDto notificationDataDto;
 
 

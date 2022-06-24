@@ -74,7 +74,6 @@ public class NotificationService {
         } catch (FirebaseMessagingException e) {
             //log.error("Fail to send firebase notification", e);
         }
-
         return response;
     }
 
@@ -89,11 +88,10 @@ public class NotificationService {
 
         String response = null;
         try {
-            FirebaseMessaging.getInstance(firebaseApp).send(message);
+            response = FirebaseMessaging.getInstance(firebaseApp).send(message);
         } catch (FirebaseMessagingException e) {
             //log.error("Fail to send firebase notification", e);
         }
-
         return response;
     }
 }
