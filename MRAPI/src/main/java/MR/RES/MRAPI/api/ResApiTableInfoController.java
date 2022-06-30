@@ -1,11 +1,10 @@
 package MR.RES.MRAPI.api;
 
+import MR.RES.MRAPI.model.*;
 import MR.RES.MRAPI.model.Queries.TableDevice.TableDevice;
 import MR.RES.MRAPI.model.Queries.TableInfo.TableInfoList;
 import MR.RES.MRAPI.model.Requests.TableStatus;
-import MR.RES.MRAPI.model.ResponseObject;
-import MR.RES.MRAPI.model.TTableInfo;
-import MR.RES.MRAPI.model.TTableOrder;
+import MR.RES.MRAPI.service.MDeviceTokenRepository;
 import MR.RES.MRAPI.service.TTableInfoRepository;
 import MR.RES.MRAPI.system.Common;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -26,6 +25,9 @@ public class ResApiTableInfoController {
 
     @Autowired
     TTableInfoRepository tableInfoRepository;
+
+    @Autowired
+    MDeviceTokenRepository deviceTokenRepository;
 
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     ResponseEntity<ResponseObject> getListTable() {
@@ -61,7 +63,8 @@ public class ResApiTableInfoController {
                     tableDatas.get(16),
                     tableDatas.get(17),
                     tableDatas.get(18),
-                    tableDatas.get(19)
+                    tableDatas.get(19),
+                    tableDatas.get(20)
                     ));
             TableInfoList tableInfoList = gson.fromJson(json, TableInfoList.class);
             results.add(tableInfoList);
@@ -75,37 +78,12 @@ public class ResApiTableInfoController {
                 );
     }
 
-    @RequestMapping(value = "/insertOrUpdateBook", method = RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     ResponseEntity<ResponseObject> insertTableInfo(@RequestBody TTableInfo tableInfo){
         try{
-            // insert
-            if(tableInfo.getId() == null){
-                return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("success","Insert Table Info successfully!",tableInfoRepository.save(tableInfo))
-                );
-            }
-            else{
-                //update
-                String date = new Common().getSystemDateTimeString();
-                Optional<TTableInfo> tTableInfo = tableInfoRepository.findById(tableInfo.getId())
-                        .map(info -> {
-                            info.setTableId(tableInfo.getTableId());
-                            info.setTableSttId(tableInfo.getTableSttId());
-                            info.setBookDt(tableInfo.getBookDt());
-                            info.setBookTm(tableInfo.getBookTm());
-                            info.setGuessNm(tableInfo.getGuessNm());
-                            info.setGuessPhone(tableInfo.getGuessPhone());
-                            info.setGuessCount(tableInfo.getGuessCount());
-                            info.setNoteTx(tableInfo.getNoteTx());
-                            info.setUpdDt(date);
-                            info.setUpdUserId("huy");
-                            info.setUpdPgmId("Table Screen");
-                            return tableInfoRepository.save(info);
-                        });
-                return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("success","Update Book info successfully",tTableInfo)
-                );
-            }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success","Insert Table Info successfully!",tableInfoRepository.save(tableInfo))
+            );
         }
         catch (Exception exception){
             return ResponseEntity.status(HttpStatus.OK).body(

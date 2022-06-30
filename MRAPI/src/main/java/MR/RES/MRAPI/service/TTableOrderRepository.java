@@ -56,6 +56,7 @@ public interface TTableOrderRepository extends JpaRepository<TTableOrder, Intege
             "join   m_table_list   tb4\n" +
             "on     tb4.table_id      = tb2.table_id\n" +
             "where  tb1.product_order_stt_id = 0\n" +
+            "and    tb1.order_dt = replace(cast(current_date as varchar(20)),'-','')\n" +
             "group by tb1.product_id,\n" +
             "         tb1.product_order_stt_id,\n" +
             "         tb2.table_id\n" +
