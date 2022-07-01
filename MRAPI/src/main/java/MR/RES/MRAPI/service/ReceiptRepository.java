@@ -26,6 +26,7 @@ public interface ReceiptRepository extends JpaRepository<TTableReceipt, Integer>
             "on     tb1.table_info_id = tb3.table_info_id\n" +
             "join   m_table_list  tb4\n" +
             "on     tb3.table_id = tb4.table_id\n" +
+            "where  tb3.serve_date = replace(cast(current_date as varchar(20)),'-','')\n" +
             "group by tb1.table_info_id,\n" +
             "         tb1.product_id\n" +
             "order by tb1.table_info_id,\n" +

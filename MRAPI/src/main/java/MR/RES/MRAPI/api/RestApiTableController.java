@@ -38,14 +38,15 @@ public class RestApiTableController {
     @Autowired
     TTableInfoRepository tableInfoRepository;
 
-
-    @RequestMapping(value = "/listTable", method = RequestMethod.GET)
-    public ResponseEntity<List<MTableList>> listAllTable(){
+    @RequestMapping(value = "/getList", method = RequestMethod.GET)
+    public ResponseEntity<ResponseObject> listAllTable(){
         List<MTableList> listTable= tableListRepository.findAll();
         if(listTable.isEmpty()) {
-            return new ResponseEntity(HttpStatus.NO_CONTENT);
+            return ResponseEntity.status(HttpStatus.OK).body (
+                    new ResponseObject("success","Empty list", null));
         }
-        return new ResponseEntity<List<MTableList>>(listTable, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body (
+                new ResponseObject("success","Get list successfully", listTable));
     }
 
     @RequestMapping(value = "/listTable/{id}", method = RequestMethod.GET)

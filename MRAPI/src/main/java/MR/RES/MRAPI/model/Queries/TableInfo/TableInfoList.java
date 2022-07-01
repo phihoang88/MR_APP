@@ -27,9 +27,12 @@ public class TableInfoList {
     @SerializedName("book_date")
     @Expose
     private Object book_dt;
-    @SerializedName("book_time")
+    @SerializedName("book_time_from")
     @Expose
-    private Object book_tm;
+    private Object book_tm_from;
+    @SerializedName("book_time_to")
+    @Expose
+    private Object book_tm_to;
     @SerializedName("is_end")
     @Expose
     private Object is_end;
@@ -65,7 +68,7 @@ public class TableInfoList {
     public TableInfoList() {
     }
 
-    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout, Object guess_nm, Object guess_count, Object guess_phone) {
+    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm_from,Object book_tm_to, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout, Object guess_nm, Object guess_count, Object guess_phone) {
         this.table_id = table_id;
         this.table_nm_vn = table_nm_vn;
         this.table_nm_en = table_nm_en;
@@ -73,7 +76,8 @@ public class TableInfoList {
         this.sort_no = sort_no;
         this.table_ava = table_ava;
         this.book_dt = book_dt;
-        this.book_tm = book_tm;
+        this.book_tm_from = book_tm_from;
+        this.book_tm_to = book_tm_to;
         this.is_end = is_end;
         this.note_tx = note_tx;
         this.serve_date = serve_date;
@@ -144,12 +148,20 @@ public class TableInfoList {
         this.book_dt = book_dt;
     }
 
-    public Object getBook_tm() {
-        return book_tm;
+    public Object getBook_tm_from() {
+        return book_tm_from;
     }
 
-    public void setBook_tm(Object book_tm) {
-        this.book_tm = book_tm;
+    public void setBook_tm_from(Object book_tm_from) {
+        this.book_tm_from = book_tm_from;
+    }
+
+    public Object getBook_tm_to() {
+        return book_tm_to;
+    }
+
+    public void setBook_tm_to(Object book_tm_to) {
+        this.book_tm_to = book_tm_to;
     }
 
     public Object getIs_end() {
