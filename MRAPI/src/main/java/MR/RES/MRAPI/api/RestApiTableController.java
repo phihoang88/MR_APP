@@ -184,7 +184,7 @@ public class RestApiTableController {
             List<Object[]> tableInfo = tableListRepository.getTableInfoByDeviceId(deviceId);
             if (tableInfo.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.OK).body(
-                        new ResponseObject("success", "Cannot get table by device id", null));
+                        new ResponseObject("failed", "Cannot get table by device id", null));
             }
             String json;
             Gson gson;
@@ -205,4 +205,36 @@ public class RestApiTableController {
             );
         }
     }
+
+    @RequestMapping(value = "/clearDeviceIdForTable/{tableId}",method = RequestMethod.PUT)
+    ResponseEntity<ResponseObject> clearDeviceForTable(@PathVariable("tableId") Integer tableId, @RequestBody String deviceId){
+        try{
+            MTableList objClear;
+            String devId = new JSONObject(deviceId).get("deviceId").toString();
+            List<MTableList> mTableLists = tableListRepository.findByDeviceId(devId);
+            if(!mTableLists.isEmpty() || mTableLists.size() > 0){
+                objClear = new MTableList();
+                for(int i = 0; i<= mTableLists.size() - 1; i++){
+                    if(mTableLists.get(i).getId() == tableId){
+                        objClear = mTableLists.get(i);
+                        objClear.setDeviceId("");
+                        tableListRepository.save(objClear);
+                        return ResponseEntity.status(HttpStatus.OK).body(
+                                new ResponseObject("success","Clear Device Id For Table successfully",objClear)
+                        );
+                    }
+                }
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("success","Clear Device Id For Table successfully","")
+            );
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("failed",ex.getMessage().toString(),"")
+            );
+        }
+    }
+
+
 }

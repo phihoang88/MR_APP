@@ -64,11 +64,13 @@ public class TableInfoList {
     private Object guess_nm;
     private Object guess_count;
     private Object guess_phone;
+    private Object device_id;
+    private Object device_token;
 
     public TableInfoList() {
     }
 
-    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm_from,Object book_tm_to, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout, Object guess_nm, Object guess_count, Object guess_phone) {
+    public TableInfoList(Object table_id, Object table_nm_vn, Object table_nm_en, Object table_nm_jp, Object sort_no, Object table_ava, Object book_dt, Object book_tm_from,Object book_tm_to, Object is_end, Object note_tx, Object serve_date, Object serve_time, Object table_info_id, Object table_stt_id, Object table_stt_nm, Object is_calling, Object is_checkout, Object guess_nm, Object guess_count, Object guess_phone, Object device_id, Object device_token) {
         this.table_id = table_id;
         this.table_nm_vn = table_nm_vn;
         this.table_nm_en = table_nm_en;
@@ -90,6 +92,8 @@ public class TableInfoList {
         this.guess_nm = guess_nm;
         this.guess_count = guess_count;
         this.guess_phone = guess_phone;
+        this.device_id = device_id;
+        this.device_token = device_token;
     }
 
     public Object getTable_id() {
@@ -258,5 +262,21 @@ public class TableInfoList {
 
     public void setGuess_phone(Object guess_phone) {
         this.guess_phone = guess_phone;
+    }
+
+    public Object getDevice_id() {
+        return device_id;
+    }
+
+    public void setDevice_id(Object device_id) {
+        this.device_id = device_id;
+    }
+
+    public Object getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(Object device_token) {
+        this.device_token = device_token;
     }
 }
