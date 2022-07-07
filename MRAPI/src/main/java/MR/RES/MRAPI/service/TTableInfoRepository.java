@@ -22,8 +22,10 @@ public interface TTableInfoRepository extends JpaRepository<TTableInfo, Integer>
             "tb2.SERVE_TIME as serve_time,\n" +
             "tb2.TABLE_INFO_ID as table_info_id,\n" +
             "tb2.TABLE_STT_ID as table_stt_id ,\n" +
-            "case when tb4.table_id Is not null \n" +
-            "\t\t  then 'Booking'\n" +
+            "case when tb4.table_id Is not null and tb2.table_info_id is not null\n" +
+            "\t\t  then 'Ordering'\n" +
+            "     when tb4.table_id is not null and tb2.table_info_id is null\n" +
+            "          then 'Booking'\n" +
             "     when tb3.attr1_tx Is null or tb2.IS_END = '1'\n" +
             "          then 'Emptying'\n" +
             "\t else tb3.attr1_tx \n" +
@@ -32,7 +34,9 @@ public interface TTableInfoRepository extends JpaRepository<TTableInfo, Integer>
             "tb2.is_checkout as is_checkout, \n" +
             "tb2.guess_nm, \n" +
             " tb2.guess_count, \n" +
-            " tb2.guess_phone \n" +
+            " tb2.guess_phone, \n" +
+            " tb1.device_id, \n" +
+            " tb2.device_token \n" +
             " FROM m_table_list tb1\n" +
             "left join t_table_info tb2\n" +
             "on   tb1.table_id = tb2.TABLE_ID\n" +
@@ -49,4 +53,27 @@ public interface TTableInfoRepository extends JpaRepository<TTableInfo, Integer>
             "where tb1.del_fg <> '1' \n" +
             "order by CAST(sort_no AS UNSIGNED) asc", nativeQuery = true)
     List<Object[]> getListTableDisplay();
+
+    @Query(value = "select table_info_id,\n" +
+            "table_id, \n" +
+            "table_stt_id, \n" +
+            "serve_date, \n" +
+            "serve_time, \n" +
+            "device_token, \n" +
+            "is_end, \n" +
+            "is_calling, \n" +
+            "is_checkout, \n" +
+            "crt_dt, \n" +
+            "crt_user_id, \n" +
+            "crt_pgm_id, \n" +
+            "del_fg \n" +
+            "from t_table_info\n" +
+            "where table_id = ?1\n" +
+            "and table_stt_id in (3,4)\n" +
+            "and is_end = 0 \n" +
+            "and serve_date = replace(cast(current_date as varchar(20)),'-','')", nativeQuery = true)
+    List<Object[]> getTableInfoByTableIdToday(Integer tableId);
+
+
+
 }

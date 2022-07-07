@@ -17,4 +17,6 @@ public interface MTableListRepository extends JpaRepository<MTableList, Integer>
             "where  device_id = ?1 \n" +
             "and    del_fg <> '1'", nativeQuery = true)
     List<Object[]> getTableInfoByDeviceId(String deviceId);
+
+    List<MTableList> findByDeviceId(String deviceId);
 }
