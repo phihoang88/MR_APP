@@ -1,10 +1,13 @@
 package MR.RES.MRAPI.service;
 
+import MR.RES.MRAPI.model.MDeviceToken;
+import MR.RES.MRAPI.model.MTableList;
 import MR.RES.MRAPI.model.TTableBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TTableBookRepository extends JpaRepository<TTableBook,Integer> {
 
@@ -51,4 +54,13 @@ public interface TTableBookRepository extends JpaRepository<TTableBook,Integer> 
             "and   book_id <> ?3\n" +
             "and   cast(book_time_to as time) > current_time()",nativeQuery = true)
     List<Object[]> getExistTableBookUpdate(Integer tableId, String bookDate, Integer bookId);
+
+    @Query(value = "select book_id\n" +
+            "from t_table_book\n" +
+            "where table_id = ?1\n" +
+            "and   is_cancel = '0'\n" +
+            "and   is_end    = '0'\n" +
+            "and   book_date = cast(current_date as varchar(20))\n" +
+            "and   cast(book_time_from as time) < current_time",nativeQuery = true)
+    List<Object[]> getListOrderInTableAfterCheckout(Integer tableId);
 }

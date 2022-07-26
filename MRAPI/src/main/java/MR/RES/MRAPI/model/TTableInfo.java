@@ -282,4 +282,8 @@ public class TTableInfo implements Serializable {
     public void setDeviceToken(String deviceToken) {
         this.deviceToken = deviceToken;
     }
+
+
+
+
 }
